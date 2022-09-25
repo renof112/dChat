@@ -1,15 +1,11 @@
-import packageJson from '../package.json'
 import { classNames } from '../helpers'
 import {
   LinkIcon,
-  BookOpenIcon,
   UserGroupIcon,
   ChevronRightIcon,
-  ArrowSmRightIcon,
 } from '@heroicons/react/solid'
 import { WalletContext } from '../contexts/wallet'
 import { useContext } from 'react'
-import Router from 'next/router'
 import { useRouter } from 'next/router'
 
 type XmtpInfoRowProps = {

@@ -115,7 +115,7 @@ const RecipientControl = ({
         resolution
         .addr(recipientValue, 'ETH')
         .then(async(address) => {await completeSubmit(address, input)})
-        .catch((error) => {
+        .catch(() => {
             setRecipientInputMode(RecipientInputMode.InvalidEntry)
         });
       }

@@ -1,16 +1,15 @@
 import type { NextPage } from 'next'
-import React, { useEffect, useState, useContext, Fragment } from 'react'
+import React, { useState, useContext, Fragment } from 'react'
 import { WalletContext } from '../../contexts/wallet'
 import { Dialog, Transition } from '@headlessui/react'
 import Loader from '../../components/Loader'
 import { ethers } from 'ethers'
 
 const Group: NextPage = () => {
-
   const {
     address: walletAddress
   } = useContext(WalletContext)
-  let [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(true)
 
   const [collection, setCollection] = useState('')
   const [loading, setLoading] = useState(false)
@@ -26,11 +25,12 @@ const Group: NextPage = () => {
   const checkAccess = async () => {
     setLoading(true)
     const provider = new ethers.providers.JsonRpcProvider(process.env.QUICKNODE_RPC_URL);
-    const heads = await provider.send("qn_fetchNFTs", {
+    const heads = await provider.send("qn_fetchNFTs", [{
       wallet: walletAddress,
-    } as any);
+    }]);
     if (heads?.assets?.length > 0) {
-      const as = heads?.assets?.find((a: any) => a?.collectionAddress == collection) as any;
+      // eslint-disable-next-line
+      const as = heads?.assets?.find((a:any) => a?.collectionAddress == collection);
       if (as) {
         alert("Access granted. Welcome to exclusive chat!");
         closeModal();
