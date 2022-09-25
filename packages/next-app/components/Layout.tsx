@@ -25,6 +25,7 @@ const NavigationHeaderLayout: React.FC = ({ children }) => (
     <Link href="/" passHref={true}>
       <img className="h-8 w-auto" src="/logo.png" alt="dChat" />
     </Link>
+    <h1 className="text-white text-xl font-semibold">dChat</h1>
     {children}
   </div>
 )

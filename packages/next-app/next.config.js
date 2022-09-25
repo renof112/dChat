@@ -5,6 +5,10 @@ const optimizedImages = require('next-optimized-images')
 const nextConfig = optimizedImages({
   reactStrictMode: true,
   handleImages: ['svg'],
+  env: {
+    OPTIMISM_GOERLI_RPC_URL: process.env.OPTIMISM_GOERLI_RPC_URL,
+    GOERLI_RPC_URL: process.env.GOERLI_RPC_URL
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       // Fixes npm packages that depend on `fs` module

@@ -5,6 +5,8 @@ import { WalletContext } from '../../contexts/wallet'
 import XmtpContext from '../../contexts/xmtp'
 import { checkIfPathIsEns } from '../../helpers'
 
+import { Resolution } from '@unstoppabledomains/resolution';
+
 type RecipientInputProps = {
   recipientWalletAddress: string | undefined
   onSubmit: (address: string) => Promise<void>
@@ -17,6 +19,26 @@ const RecipientInputMode = {
   Submitted: 3,
   NotOnNetwork: 4,
 }
+
+const ethereumProviderUrl = "https://cloudflare-eth.com";
+const polygonProviderUrl = "https://rpc.ankr.com/polygon_mumbai";
+
+const resolution = new Resolution({
+  sourceConfig: {
+    uns: {
+      locations: {
+        Layer1: {
+          url: ethereumProviderUrl,
+          network: 'mainnet'
+        },
+        Layer2: {
+          url: polygonProviderUrl,
+          network: 'polygon-mumbai',
+        },
+      },
+    },
+  },
+});
 
 const RecipientControl = ({
   recipientWalletAddress,
@@ -80,6 +102,24 @@ const RecipientControl = ({
           setRecipientInputMode(RecipientInputMode.InvalidEntry)
         }
       } else if (
+        recipientValue.endsWith('.crypto') || 
+        recipientValue.endsWith('.wallet') || 
+        recipientValue.endsWith('.coin') || 
+        recipientValue.endsWith('.x') || 
+        recipientValue.endsWith('.nft') || 
+        recipientValue.endsWith('.blockchain') || 
+        recipientValue.endsWith('.bitcoin') || 
+        recipientValue.endsWith('.888') || 
+        recipientValue.endsWith('.dao')
+      ) {
+        resolution
+        .addr(recipientValue, 'ETH')
+        .then(async(address) => {await completeSubmit(address, input)})
+        .catch((error) => {
+            setRecipientInputMode(RecipientInputMode.InvalidEntry)
+        });
+      }
+      else if (
         recipientValue.startsWith('0x') &&
         recipientValue.length === 42
       ) {
@@ -99,6 +139,15 @@ const RecipientControl = ({
       }
       if (
         data.value.endsWith('.eth') ||
+        data.value.endsWith('.crypto') || 
+        data.value.endsWith('.wallet') || 
+        data.value.endsWith('.coin') || 
+        data.value.endsWith('.x') || 
+        data.value.endsWith('.nft') || 
+        data.value.endsWith('.blockchain') || 
+        data.value.endsWith('.bitcoin') || 
+        data.value.endsWith('.888') || 
+        data.value.endsWith('.dao') || 
         (data.value.startsWith('0x') && data.value.length === 42)
       ) {
         handleSubmit(e, data.value)
@@ -146,7 +195,7 @@ const RecipientControl = ({
           {recipientInputMode === RecipientInputMode.FindingEntry &&
             'Finding ENS domain...'}
           {recipientInputMode === RecipientInputMode.InvalidEntry &&
-            'Please enter a valid wallet address'}
+            'Please enter a valid wallet address or Unstoppable domain'}
           {recipientInputMode === RecipientInputMode.ValidEntry && <br />}
         </div>
       )}

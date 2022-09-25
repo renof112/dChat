@@ -8,8 +8,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@connext/nxtp-sdk": "^0.2.0-alpha.24",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
+    "@unstoppabledomains/resolution": "^8.3.3",
     "@xmtp/xmtp-js": "^6.0.0",
     "ethers": "^5.5.3",
     "imagemin-svgo": "^9.0.0",

@@ -62,19 +62,12 @@ const XmtpInfoPanel = ({ onConnect }: XmtpInfoPanelProps): JSX.Element => {
       disabled: !!walletAddress,
     },
     {
-      icon: <BookOpenIcon />,
+      icon: <UserGroupIcon />,
       headingText: 'NFT-gated Chat',
       subHeadingText:
-        '',
+        'Exclusive group chat for NFT collection owners',
       onClick: () => window.open('', '_blank'),
-    },
-    {
-      icon: <UserGroupIcon />,
-      headingText: 'Join our community',
-      subHeadingText:
-        '',
-      onClick: () => window.open('', '_blank'),
-    },
+    }
   ]
 
   return (
