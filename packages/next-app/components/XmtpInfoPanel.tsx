@@ -9,6 +9,8 @@ import {
 } from '@heroicons/react/solid'
 import { WalletContext } from '../contexts/wallet'
 import { useContext } from 'react'
+import Router from 'next/router'
+import { useRouter } from 'next/router'
 
 type XmtpInfoRowProps = {
   icon: JSX.Element
@@ -53,6 +55,8 @@ const InfoRow = ({
 
 const XmtpInfoPanel = ({ onConnect }: XmtpInfoPanelProps): JSX.Element => {
   const { address: walletAddress } = useContext(WalletContext)
+  const router = useRouter()
+
   const InfoRows = [
     {
       icon: <LinkIcon />,
@@ -65,8 +69,8 @@ const XmtpInfoPanel = ({ onConnect }: XmtpInfoPanelProps): JSX.Element => {
       icon: <UserGroupIcon />,
       headingText: 'NFT-gated Chat',
       subHeadingText:
-        'Exclusive group chat for NFT collection owners',
-      onClick: () => window.open('', '_blank'),
+        'Exclusive group chat for NFT owners',
+      onClick: () => router.push('/group'),
     }
   ]
 

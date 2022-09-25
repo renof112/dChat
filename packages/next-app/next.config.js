@@ -7,7 +7,8 @@ const nextConfig = optimizedImages({
   handleImages: ['svg'],
   env: {
     OPTIMISM_GOERLI_RPC_URL: process.env.OPTIMISM_GOERLI_RPC_URL,
-    GOERLI_RPC_URL: process.env.GOERLI_RPC_URL
+    GOERLI_RPC_URL: process.env.GOERLI_RPC_URL,
+    QUICKNODE_RPC_URL: process.env.QUICKNODE_RPC_URL
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
